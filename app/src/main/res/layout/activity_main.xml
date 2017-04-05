@@ -31,4 +31,10 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email"/>
 
+    <SurfaceView
+        android:id="@+id/sf_video"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
+
 </android.support.design.widget.CoordinatorLayout>
