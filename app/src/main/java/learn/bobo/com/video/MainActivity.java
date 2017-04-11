@@ -6,19 +6,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.SurfaceView;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.sf_video)
-    SurfaceView mSurfaceView;
+//    @BindView(R.id.sf_video)
+//    SurfaceView mSurfaceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_start)
     public void startRecord(){
         Intent intent = new Intent(this, RecordActivity.class);
+        startActivity(intent);
+    }
+
+
+    @OnClick(R.id.btn_preview)
+    public void startPreview(){
+        Intent intent = new Intent(this, PreviewActivity.class);
         startActivity(intent);
     }
 }
