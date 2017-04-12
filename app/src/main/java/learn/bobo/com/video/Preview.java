@@ -1,8 +1,10 @@
 package learn.bobo.com.video;
 
 import android.content.Context;
+import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 
 import java.io.IOException;
 import java.util.List;
+
 /**
  * Created by max on 17-4-11.
  */
@@ -27,8 +30,8 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
     // 相机
     Camera mCamera;
 
-    Preview(Context context) {
-        super(context);
+    public Preview(Context context, AttributeSet set) {
+        super(context,set);
         mSurfaceView = new SurfaceView(context);
         //添加View
         addView(mSurfaceView);
@@ -169,16 +172,24 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
         return optimalSize;
     }
 
+    @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
         //预览大小是已知的，设置相机参数，并开始预览。
-        if(mCamera==null){
+        if (mCamera == null) {
             return;
         }
-        Camera.Parameters parameters = mCamera.getParameters();
-        parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
-        requestLayout();
-        mCamera.setParameters(parameters);
-        mCamera.startPreview();
-    }
+        try {
+            Camera.Parameters parameters = mCamera.getParameters();
+            parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
+            parameters.setPictureFormat(PixelFormat.JPEG);//设置照片输出的格式
+            parameters.setJpegQuality(85);
+            parameters.setPictureSize(1280,720);
+            requestLayout();
+            mCamera.setParameters(parameters);
+            mCamera.startPreview();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+    }
 }

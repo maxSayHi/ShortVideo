@@ -1,22 +1,29 @@
 package learn.bobo.com.video;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-//    @BindView(R.id.sf_video)
-//    SurfaceView mSurfaceView;
+    @BindView(R.id.iv_result)
+    ImageView iv_result;
+
+    public static byte[] pic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,23 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_preview)
     public void startPreview(){
         Intent intent = new Intent(this, PreviewActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,0);
+    }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        byte[] pics = data.getByteArrayExtra("pic");
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(pics, 0, pics.length);
+//        iv_result.setImageBitmap(bitmap);
+//    }
+
+    @OnClick(R.id.btn_view_pic)
+    public void viewPic(){
+//        byte[] pics = data.getByteArrayExtra("pic");
+        Log.e("bobo",pic.length/1024+"  照片大小");
+        Bitmap bitmap = BitmapFactory.decodeByteArray(pic, 0, pic.length);
+        iv_result.setImageBitmap(bitmap);
     }
 }

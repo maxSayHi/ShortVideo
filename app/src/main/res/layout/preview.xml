@@ -3,4 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+    <learn.bobo.com.video.Preview
+        android:id="@+id/sv_camera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <Button
+        android:id="@+id/take_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="拍摄"/>
 </FrameLayout>
