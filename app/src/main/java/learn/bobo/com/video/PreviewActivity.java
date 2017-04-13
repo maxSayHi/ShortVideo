@@ -7,9 +7,16 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class PreviewActivity extends Activity {
     @BindView(R.id.sv_camera)
@@ -18,6 +25,20 @@ public class PreviewActivity extends Activity {
     private int numberOfCameras;
     private int defaultCameraId;
 
+    public static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
+
+    OkHttpClient client = new OkHttpClient();
+
+    String post(String url, String json) throws IOException {
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,5 +115,10 @@ public class PreviewActivity extends Activity {
 //                finish();
             }
         });
+    }
+
+
+    public void upload(){
+
     }
 }

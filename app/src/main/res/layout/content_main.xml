@@ -18,7 +18,6 @@
         android:layout_height="wrap_content"/>
 
     <Button
-        android:layout_marginTop="60dp"
         android:id="@+id/btn_preview"
         android:text="开始预览"
         android:textSize="30dp"
@@ -26,15 +25,24 @@
         android:layout_height="wrap_content"/>
 
     <Button
-        android:layout_marginTop="60dp"
         android:id="@+id/btn_view_pic"
         android:text="查看图片"
         android:textSize="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <Button
+        android:id="@+id/btn_get_result"
+        android:text="获取结果"
+        android:textSize="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 
     <TextView
+        android:maxLines = "20"
+        android:scrollbars = "vertical"
+        android:id="@+id/tv_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
