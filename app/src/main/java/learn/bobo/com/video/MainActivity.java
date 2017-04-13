@@ -78,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent,0);
     }
 
+    @OnClick(R.id.btn_texture)
+    public void startTexture(){
+        Intent intent = new Intent(this, TexureActivity.class);
+        startActivityForResult(intent,0);
+    }
+
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);

@@ -74,19 +74,19 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
         camera.setParameters(parameters);
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        //摄像头不是所有随便的(w, h)都能够认识的，所以在onMeasure()方法中进行处理
-        final int width = resolveSize(getSuggestedMinimumWidth(),
-                widthMeasureSpec);
-        final int height = resolveSize(getSuggestedMinimumHeight(),
-                heightMeasureSpec);
-        setMeasuredDimension(width, height);
-        if (mSupportedPreviewSizes != null) {
-            mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes, width,
-                    height);
-        }
-    }
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        //摄像头不是所有随便的(w, h)都能够认识的，所以在onMeasure()方法中进行处理
+////        final int width = resolveSize(getSuggestedMinimumWidth(),
+////                widthMeasureSpec);
+////        final int height = resolveSize(getSuggestedMinimumHeight(),
+////                heightMeasureSpec);
+////        setMeasuredDimension(width, height);
+////        if (mSupportedPreviewSizes != null) {
+////            mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes, width,
+////                    height);
+////        }
+//    }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -191,5 +191,13 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Sets the mPreviewSize
+     * You can use getPreviewSize() to get the value of mPreviewSize
+     */
+    public void setPreviewSize(Size previewSize) {
+        mPreviewSize = previewSize;
     }
 }

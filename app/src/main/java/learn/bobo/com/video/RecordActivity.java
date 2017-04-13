@@ -46,7 +46,7 @@ public class RecordActivity extends Activity {
         recordbutton = (Button) this.findViewById(R.id.recordbutton);
         stopbutton = (Button) this.findViewById(R.id.stopbutton);
 
-//		mPreview = new Preview(this);
+//		mTextureView = new Preview(this);
 //		safeCameraOpen(0);
     }
 

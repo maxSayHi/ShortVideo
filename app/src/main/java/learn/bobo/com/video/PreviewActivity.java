@@ -7,6 +7,10 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,7 +28,7 @@ public class PreviewActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//		mPreview = new Preview(this);
+//		mTextureView = new Preview(this);
         setContentView(R.layout.preview);
         ButterKnife.bind(this);
         //找到可用的相机数量
@@ -57,8 +61,18 @@ public class PreviewActivity extends Activity {
         try {
             releaseCameraAndPreview();
             Camera camera = Camera.open();
-            mPreview.setCamera(camera);
             mCamera = camera;
+
+            int screenWidth = getWindowManager().getDefaultDisplay().getWidth();
+            int screenHeight = getWindowManager().getDefaultDisplay().getHeight();
+
+            Camera.Parameters parameters = mCamera.getParameters();
+            Camera.Size mPreviewSize = getNearestRatioSize(parameters, screenWidth,
+                    screenHeight);
+            mPreview.setPreviewSize(mPreviewSize);
+
+            mPreview.setCamera(camera);
+
             qOpened = (mCamera != null);
         } catch (Exception e) {
             Log.e(getString(R.string.app_name), "failed to open Camera");
@@ -94,5 +108,32 @@ public class PreviewActivity extends Activity {
 //                finish();
             }
         });
+    }
+
+    public static Camera.Size getNearestRatioSize(Camera.Parameters para,
+                                                  final int screenWidth, final int screenHeight) {
+        List<Camera.Size> supportedSize = para.getSupportedPreviewSizes();
+        for (Camera.Size tmp : supportedSize) {
+            if (tmp.width == 1280 && tmp.height == 720) {
+                return tmp;
+            }
+        }
+        Collections.sort(supportedSize, new Comparator<Camera.Size>() {
+            @Override
+            public int compare(Camera.Size lhs, Camera.Size rhs) {
+                int diff1 = (((int) ((1000 * (Math.abs(lhs.width
+                        / (float) lhs.height - screenWidth
+                        / (float) screenHeight))))) << 16)
+                        - lhs.width;
+                int diff2 = (((int) (1000 * (Math.abs(rhs.width
+                        / (float) rhs.height - screenWidth
+                        / (float) screenHeight)))) << 16)
+                        - rhs.width;
+
+                return diff1 - diff2;
+            }
+        });
+
+        return supportedSize.get(0);
     }
 }

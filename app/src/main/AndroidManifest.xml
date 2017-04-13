@@ -28,6 +28,9 @@
         <activity
             android:name=".PreviewActivity"
             android:screenOrientation="landscape"/>
+        <activity
+            android:name=".TexureActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>
