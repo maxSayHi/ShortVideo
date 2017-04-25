@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <learn.bobo.com.video.Preview
-        android:id="@+id/sv_camera"
+    <TextureView
+        android:id="@+id/tv_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <Button
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
         android:id="@+id/take_pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="拍摄"/>
-</FrameLayout>
+        android:text="识别"/>
+</RelativeLayout>
